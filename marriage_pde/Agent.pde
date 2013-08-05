@@ -86,7 +86,8 @@ class Agent {
     if(p.y<-10) p.y=pOld.y=height+10;
     if(p.y>height+10) p.y=pOld.y=-10;
     
-    stroke(col, agentsAlpha);
+   //   stroke(col, agentsAlpha);
+     stroke(col);
     strokeWeight(strokeWidth);
     line(pOld.x,pOld.y, p.x,p.y);
     

@@ -8,9 +8,9 @@ void setupGUI(){
   controlP5.setColorLabel(color(50));
   controlP5.setColorValue(color(255));
 
-  ControlGroup ctrl = controlP5.addGroup("menu",15,25,35);
-  ctrl.setColorLabel(color(255));
-  ctrl.close();
+//  ControlGroup ctrl = controlP5.addGroup("menu",15,25,35);
+//  ctrl.setColorLabel(color(255));
+//  ctrl.close();
 
   sliders = new Slider[10];
 
@@ -21,24 +21,24 @@ void setupGUI(){
   int si = 0;
   int posY = 0;
 
-  sliders[si++] = controlP5.addSlider("agentsCount",1,10000,left,top+posY+0,len,15);
-  posY += 30;
-
-  sliders[si++] = controlP5.addSlider("noiseScale",1,1000,left,top+posY+0,len,15);
-  sliders[si++] = controlP5.addSlider("noiseStrength",0,100,left,top+posY+20,len,15);
-  posY += 50;
-
-  sliders[si++] = controlP5.addSlider("strokeWidth",0,10,left,top+posY+0,len,15);
-  posY += 30;
-
-  sliders[si++] = controlP5.addSlider("noiseZRange",0,5,left,top+posY+0,len,15);
-  posY += 30;
-
-  sliders[si++] = controlP5.addSlider("agentsAlpha",0,255,left,top+posY+0,len,15);
-  sliders[si++] = controlP5.addSlider("overlayAlpha",0,255,left,top+posY+20,len,15);
+//  sliders[si++] = controlP5.addSlider("agentsCount",1,10000,left,top+posY+0,len,15);
+//  posY += 30;
+//
+//  sliders[si++] = controlP5.addSlider("noiseScale",1,1000,left,top+posY+0,len,15);
+//  sliders[si++] = controlP5.addSlider("noiseStrength",0,100,left,top+posY+20,len,15);
+//  posY += 50;
+//
+//  sliders[si++] = controlP5.addSlider("strokeWidth",0,10,left,top+posY+0,len,15);
+//  posY += 30;
+//
+//  sliders[si++] = controlP5.addSlider("noiseZRange",0,5,left,top+posY+0,len,15);
+//  posY += 30;
+//
+//  sliders[si++] = controlP5.addSlider("agentsAlpha",0,255,left,top+posY+0,len,15);
+//  sliders[si++] = controlP5.addSlider("overlayAlpha",0,255,left,top+posY+20,len,15);
 
   for (int i = 0; i < si; i++) {
-    sliders[i].setGroup(ctrl);
+//    sliders[i].setGroup(ctrl);
     sliders[i].setId(i);
     sliders[i].captionLabel().toUpperCase(true);
     sliders[i].captionLabel().style().padding(4,3,3,3);

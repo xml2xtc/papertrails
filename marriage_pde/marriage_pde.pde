@@ -19,7 +19,7 @@ Agent[] agents = new Agent[10000]; // create more ... to fit max slider agentsCo
 
 int agentsCount = 1;
 float noiseScale = 100, noiseStrength = 10, noiseZRange = 0.4;
-float overlayAlpha = 2, agentsAlpha = 100, strokeWidth = 2, agentWidthMin = 1.5, agentWidthMax = 15;
+float overlayAlpha = 0, agentsAlpha = 100, strokeWidth = 2, agentWidthMin = 1.5, agentWidthMax = 15;
 int drawMode = 1;
 PShape img;
 int currentYear;
@@ -63,8 +63,8 @@ void draw(){
      currentYear = csvJokbo.getCurrentYear();
      
      //update Year text on the display
-     fill(random(255),random(255),random(255));
-     rect(500,80,65,40);
+     //fill(255,8,157);
+     //rect(500,80,65,40);
      textSize(32);
      fill(0,102,153);
      text(""+currentYear,500,100);
