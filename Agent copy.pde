@@ -24,7 +24,7 @@ class Agent {
   color col,antiCol;
   int   yearMarker;
   boolean brideArrived;
-  int FPY = 240;  //Number of frames per year controls the speed of the arrow
+  int FPY = 120;  //Number of frames per year 
   int currentFrame;
   float clan0X,clan0Y;
   float stepSizeX, stepSizeY;
@@ -32,25 +32,18 @@ class Agent {
   Agent(float m, float n, float clan0X, float clan0Y) {
     p = new PVector(m,n);
     pOld = new PVector(p.x,p.y);
-    stepSize = random(2,10);
-    //println(""+p.x+" "+p.y+" "+clan0X+" "+clan0Y);
-    
-    //stepSize is the speed based on FPY
+    stepSize = 4;
+    println(""+p.x+" "+p.y+" "+clan0X+" "+clan0Y);
     stepSizeX = (clan0X-p.x)/FPY;
-    stepSizeY = (clan0Y-p.y)/FPY;
-    //direction 
-    if((clan0X-p.x)<0){
-      angle = PI + atan((clan0Y-p.y)/(clan0X-p.x));}else{
-      angle = atan((clan0Y-p.y)/(clan0X-p.x));}
-      
-    //println("Step Size is "+stepSizeX+" "+stepSizeY);
+    stepSizeY = (clan0Y-p.y)/FPY; 
+    println("Step Size is "+stepSizeX+" "+stepSizeY);
     brideArrived = false;
     // init noiseZ
     setNoiseZRange(0.4);
     //col = color((int)random(40,60), 70, (int)random(0,100));
-    float colorR = 215; //random(255);
-    float colorG = 228; //random(255);
-    float colorB = 252; //random(255);
+    float colorR = 247;
+    float colorG = 7;
+    float colorB = 7;
     col = color(colorR,colorG,colorB);
     antiCol = color(255-colorR,255-colorG,255-colorB);
     currentFrame = 0;
@@ -58,16 +51,15 @@ class Agent {
 
   void update1(){
     currentFrame ++;
-    //angle = noise(p.x/noiseScale, p.y/noiseScale, noiseZ) * noiseStrength;
+    angle = noise(p.x/noiseScale, p.y/noiseScale, noiseZ) * noiseStrength;
 
     p.x += stepSizeX;
     p.y += stepSizeY;
     
     
     stroke(col, agentsAlpha);
-    strokeWeight(2);//strokeWidth*stepSize/2);
+    strokeWeight(strokeWidth*stepSize/2);
     line(pOld.x,pOld.y, p.x,p.y);
-    drawBride(p.x,p.y,10.00);
     //println("coord is" + p.x +"" + p.y);
     //println(currentFrame);
     //Set the condition for bride arrival at the clan
@@ -94,9 +86,11 @@ class Agent {
     if(p.y<-10) p.y=pOld.y=height+10;
     if(p.y>height+10) p.y=pOld.y=-10;
     
-    stroke(col, agentsAlpha);
+   //   stroke(col, agentsAlpha);
+     stroke(col);
     strokeWeight(strokeWidth);
     line(pOld.x,pOld.y, p.x,p.y);
+    
     float agentWidth = map(randomizer,0,1,agentWidthMin,agentWidthMax);
     pushMatrix();
     translate(pOld.x,pOld.y);    
@@ -116,29 +110,6 @@ class Agent {
   
   boolean done() {return brideArrived;}
   color getBgdColor(){return antiCol;}
-  //change the moving objectshape: 
-  private void drawBride(float brideLocX, float brideLocY, float shapeSize) {
-    pushMatrix();
-    translate(brideLocX, brideLocY); //translate it the coordinate of the object
-    rotate(angle);
-    float colorR = 253; //random(255);
-    float colorG = 0; //random(255);
-    float colorB = 7; //random(255);
-    col = color(colorR,colorG,colorB);
-    //start to draw the bride shape centered at where it should be 
-    fill(colorR,colorG,colorB);
-    noStroke();
-    beginShape();
-    vertex(2*shapeSize/1.732,0);
-    vertex(-shapeSize/1.732,-0.4*shapeSize);
-    vertex(0,0); //origin vertex 
-    vertex(-shapeSize/1.732,0.4*shapeSize);
-    endShape();
-    
-    popMatrix();
-  }
-  
-  
 }
 
 

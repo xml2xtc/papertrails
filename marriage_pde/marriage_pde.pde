@@ -19,10 +19,11 @@ Agent[] agents = new Agent[10000]; // create more ... to fit max slider agentsCo
 
 int agentsCount = 1;
 float noiseScale = 100, noiseStrength = 10, noiseZRange = 0.4;
-float overlayAlpha = 0, agentsAlpha = 100, strokeWidth = 2, agentWidthMin = 1.5, agentWidthMax = 15;
+float overlayAlpha = 0, agentsAlpha = 500, strokeWidth = .5, agentWidthMin = 1.5, agentWidthMax = 15;
 int drawMode = 1;
 PShape img;
 int currentYear;
+int timer = 0;
 
 // ------ ControlP5 ------
 ControlP5 controlP5;
@@ -44,7 +45,7 @@ void setup(){
   //Latitude range of the map: 33 to 39
   //Longitude range of the map: 124 to 132
 
-  csvJokbo = new Jokbo("jokbo1.txt");
+  csvJokbo = new Jokbo("jokbo1test3.txt");
   clan0Y = map(clan0Y,39,33,0,height);
   clan0X = map(clan0X,124,132,0,width);
   //println("clan0 coord is" + clan0X +""+clan0Y);//For debug
@@ -56,28 +57,29 @@ void setup(){
   
   currentYear = csvJokbo.getCurrentYear();
   setupGUI();
-    shape(img, 0, 0, width, height);
+    //shape(img, 0, 0, width, height);
 }
 
 void draw(){
   if (agents[0].done() == true){
-     //shape(img, 0, 0, width, height);
+     shape(img, 0, 0, width, height);
      agentsCount = 0;
      csvJokbo.toNextLine();
      currentYear = csvJokbo.getCurrentYear();
      
      //update Year text on the display
-     fill(255,8,157);
-     rect(500,80,65,40);
-     textSize(24);
-     fill(0,102,153);
-     text(""+currentYear,500,100);
+     //fill(255,7,7);
+     //noStroke();
+     //rect(500,80,65,40);
+     textSize(width/3);
+     fill(255,255,255,75);
+     text(""+currentYear,50,height/1.75);
      
      while (currentYear == csvJokbo.getCurrentYear()) {
        float lat  = csvJokbo.getLat();
        float lo  = csvJokbo.getLong();
-       lat = map(lat,39,33,0,640);
-       lo = map(lo,124.5,132,0,640);
+       lat = map(lat,39,33,0,height);
+       lo = map(lo,124.5,132,0,width);
        agents[agentsCount] = new Agent(lo, lat, clan0X, clan0Y);
        agentsCount ++;
        csvJokbo.toNextLine();//This will have one line overlap
@@ -118,4 +120,11 @@ void keyReleased(){
 
 String timestamp() {
   return String.format("%1$ty%1$tm%1$td_%1$tH%1$tM%1$tS", Calendar.getInstance());
+}
+
+//function that adjusts the stroke color based on the time
+void adjustStrokecolor(){
+
+  
+  
 }
