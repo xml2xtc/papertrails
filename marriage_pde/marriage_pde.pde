@@ -38,7 +38,7 @@ float clan0X = 128.8894;
 
 
 void setup(){
-  size(640,640,P2D);
+  size(760,760,P2D);
 
   img = loadShape("map.svg");  //load the background map with the right aspect ratio
   //Latitude range of the map: 33 to 39
