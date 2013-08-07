@@ -32,7 +32,7 @@ class Agent {
   Agent(float m, float n, float clan0X, float clan0Y) {
     p = new PVector(m,n);
     pOld = new PVector(p.x,p.y);
-    stepSize = random(2,10);
+    stepSize = 4;
     println(""+p.x+" "+p.y+" "+clan0X+" "+clan0Y);
     stepSizeX = (clan0X-p.x)/FPY;
     stepSizeY = (clan0Y-p.y)/FPY; 
@@ -41,9 +41,9 @@ class Agent {
     // init noiseZ
     setNoiseZRange(0.4);
     //col = color((int)random(40,60), 70, (int)random(0,100));
-    float colorR = random(255);
-    float colorG = random(255);
-    float colorB = random(255);
+    float colorR = 247;
+    float colorG = 7;
+    float colorB = 7;
     col = color(colorR,colorG,colorB);
     antiCol = color(255-colorR,255-colorG,255-colorB);
     currentFrame = 0;

@@ -34,15 +34,19 @@ Jokbo csvJokbo;
 float clan0Y = 35.2285;
 float clan0X = 128.8894;
 
+
+
+
 void setup(){
   size(640,640,P2D);
+
   img = loadShape("map.svg");  //load the background map with the right aspect ratio
   //Latitude range of the map: 33 to 39
   //Longitude range of the map: 124 to 132
 
   csvJokbo = new Jokbo("jokbo1.txt");
-  clan0Y = map(clan0Y,39,33,0,640);
-  clan0X = map(clan0X,124,132,0,640);
+  clan0Y = map(clan0Y,39,33,0,height);
+  clan0X = map(clan0X,124,132,0,width);
   //println("clan0 coord is" + clan0X +""+clan0Y);//For debug
   smooth();
   PVector p;
@@ -57,15 +61,15 @@ void setup(){
 
 void draw(){
   if (agents[0].done() == true){
-     shape(img, 0, 0, width, height);
+     //shape(img, 0, 0, width, height);
      agentsCount = 0;
      csvJokbo.toNextLine();
      currentYear = csvJokbo.getCurrentYear();
      
      //update Year text on the display
-     //fill(255,8,157);
-     //rect(500,80,65,40);
-     textSize(32);
+     fill(255,8,157);
+     rect(500,80,65,40);
+     textSize(24);
      fill(0,102,153);
      text(""+currentYear,500,100);
      
