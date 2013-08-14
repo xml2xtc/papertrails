@@ -64,8 +64,9 @@ void setup(){
 }
 
 void draw(){
-    if (millis() - timer >= 120000) {
-    image(danny, 0, 0, width/2, height/2);
+    if (millis() - timer >= 30000) {
+    image(danny, 0, 0,width,height);
+    
     timer = millis();
   }else{
   if (agents[0].done() == true){
