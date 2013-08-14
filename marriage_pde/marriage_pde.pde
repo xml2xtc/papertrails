@@ -19,7 +19,7 @@ Agent[] agents = new Agent[10000]; // create more ... to fit max slider agentsCo
 
 int agentsCount = 1;
 float noiseScale = 100, noiseStrength = 10, noiseZRange = 0.4;
-float overlayAlpha = 0, agentsAlpha = 125, strokeWidth = .5, agentWidthMin = 1.5, agentWidthMax = 15;
+float overlayAlpha = 0, agentsAlpha = 50, strokeWidth = .5, agentWidthMin = 1.5, agentWidthMax = 15;
 int drawMode = 1;
 PShape img;
 int currentYear;
@@ -38,12 +38,12 @@ float clan0X = 128.8894;
 
 
 
-PImage danny;
+//PImage danny;
 
 
 void setup(){
   size(900,900,P2D);
-  danny = loadImage("danny.png");
+  //danny = loadImage("danny.png");
   img = loadShape("map10.svg");  //load the background map with the right aspect ratio
   //Latitude range of the map: 33 to 39
   //Longitude range of the map: 124 to 132
@@ -64,11 +64,11 @@ void setup(){
 }
 
 void draw(){
-    if (millis() - timer >= 30000) {
-    image(danny, 0, 0,width,height);
-    
-    timer = millis();
-  }else{
+//    if (millis() - timer >= 30000) {
+//    image(danny, 0, 0,width,height);
+//    
+//    timer = millis();
+//  }else{
   if (agents[0].done() == true){
      shape(img, 0, 0, width, height);
      agentsCount = 0;
@@ -80,7 +80,7 @@ void draw(){
      //noStroke();
      //rect(500,80,65,40);
      textSize(width/10);
-     fill(24,25,25,200);
+     fill(244,201,213,200);
      text(""+currentYear,clan0X + 50,clan0Y + 50);
      
      while (currentYear == csvJokbo.getCurrentYear()) {
@@ -113,7 +113,7 @@ void draw(){
 
   //drawGUI();
 }
-}
+//}
 
 void keyReleased(){
 //  if (key=='m' || key=='M') {

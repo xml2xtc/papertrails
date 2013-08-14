@@ -20,11 +20,11 @@
 class Agent {
   PVector p, pOld;
   float noiseZ, noiseZVelocity = 0.01;
-  float stepSize, angle, randomizer;
+  float stepSize, angle, randomizer, dO;
   color col, antiCol;
   int   yearMarker;
   boolean brideArrived;
-  int FPY = 100;  //Number of frames per year controls the speed of the arrow
+  int FPY = 1000;  //Number of frames per year controls the speed of the arrow
   int currentFrame;
   float clan0X, clan0Y;
   float stepSizeX, stepSizeY;
@@ -38,6 +38,8 @@ class Agent {
     //stepSize is the speed based on FPY
     stepSizeX = (clan0X-p.x)/FPY;
     stepSizeY = (clan0Y-p.y)/FPY;
+    //dO = ((clan0X+clan0Y)-(p.x-p.y)/255);
+    println("distance from Origin:"+dO); 
     //direction 
     if ((clan0X-p.x)<0) {
       angle = PI + atan((clan0Y-p.y)/(clan0X-p.x));
@@ -51,9 +53,9 @@ class Agent {
     // init noiseZ
     setNoiseZRange(0.4);
     //col = color((int)random(40,60), 70, (int)random(0,100));
-    float colorR = 215; //random(255);
-    float colorG = 228; //random(255);
-    float colorB = 252; //random(255);
+    float colorR = 245; //random(255);
+    float colorG = 240; //random(255);
+    float colorB = 255; //random(255);
     col = color(colorR, colorG, colorB);
     antiCol = color(255-colorR, 255-colorG, 255-colorB);
     currentFrame = 0;
@@ -70,7 +72,7 @@ class Agent {
     stroke(col, agentsAlpha);
     strokeWeight(2);//strokeWidth*stepSize/2);
     line(pOld.x, pOld.y, p.x, p.y);
-    drawBride(p.x, p.y, 10.00);
+    drawBride(p.x, p.y, 5.50);
     //println("coord is" + p.x +"" + p.y);
     //println(currentFrame);
     //Set the condition for bride arrival at the clan
@@ -133,13 +135,13 @@ class Agent {
     float colorB = 245; //random(255);
     col = color(colorR, colorG, colorB);
     //start to draw the bride shape centered at where it should be 
-    fill(col, agentsAlpha);
+    fill(col);
     noStroke();
     beginShape();
     vertex(.5*shapeSize/.732, 0);
-    vertex(-shapeSize/.732, -0.5*shapeSize);
+    vertex(-shapeSize/.732, -0.3*shapeSize);
     vertex(0, 0); //origin vertex 
-    vertex(-shapeSize/.732, 0.5*shapeSize);
+    vertex(-shapeSize/.732, 0.3*shapeSize);
     endShape();
 
     popMatrix();
