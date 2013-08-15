@@ -45,7 +45,7 @@ class Agent {
     //distance is mapped 
     distanceAlpha = map(distance,0,maxDist,0,30);
     distanceAlphaR = map(distance,0,maxDist,300,0);
-    distanceAlphaG = map(distance,0,maxDist,400,150);
+    distanceAlphaG = map(distance,0,maxDist,300,100);
     distanceAlphaB = map(distance,0,maxDist,300,20);
     //direction 
     if ((clan0X-p.x)<0) {
@@ -80,7 +80,7 @@ class Agent {
     strokeWeight(2);//strokeWidth*stepSize/2);
     line(pOld.x, pOld.y, p.x, p.y);
       
-    drawBride(p.x, p.y, distanceAlpha);
+    drawBride(p.x, p.y,10 + random(-4,2));
     //println("coord is" + p.x +"" + p.y);
     //println(currentFrame);
     

@@ -42,17 +42,19 @@ PFont mono;
 
 
 void setup(){
-  size(displayWidth,displayHeight,P2D);
+  size(576,1024,P2D);
  background(244,201,213); 
 mono = loadFont("CourierNewPSMT-40.vlw");
   //danny = loadImage("danny.png");
   img = loadShape("map10crop5.svg");  //load the background map with the right aspect ratio
   //Latitude range of the map: 33 to 39
   //Longitude range of the map: 124 to 132
+    //Latitude range of the map: 32 to 40
+  //Longitude range of the map: 125 to 129.5
 
-  csvJokbo = new Jokbo("jokbo1.txt");
-  clan0Y = map(clan0Y,39,33,0,height);
-  clan0X = map(clan0X,124,132,0,width);
+  csvJokbo = new Jokbo("jokbo1test3.txt");
+  clan0Y = map(clan0Y,30,40,0,height);
+  clan0X = map(clan0X,125,129.5,0,width);
   //println("clan0 coord is" + clan0X +""+clan0Y);//For debug
   smooth();
   PVector p;
@@ -62,7 +64,7 @@ mono = loadFont("CourierNewPSMT-40.vlw");
   
   currentYear = csvJokbo.getCurrentYear();
   //setupGUI();
-    //shape(img, 0, 0, width, height);
+    shape(img, 0, 0, width, height);
 }
 
 void draw(){
@@ -72,7 +74,7 @@ void draw(){
 //    timer = millis();
 //  }else{
   if (agents[0].done() == true){
-    shape(img, 0, 0, width, height);
+    //shape(img, 0, 0, width, height);
     //background(244,201,213); 
      agentsCount = 0;
      csvJokbo.toNextLine();
@@ -81,19 +83,21 @@ void draw(){
      //update Year text on the display
      //fill(255,7,7);
      noStroke();
-     fill(244,201,213);
-     rect(clan0X + 50,clan0Y +175,100,40);
+     fill(234,252,234);
+     rect(clan0X - 50,clan0Y +175,100,40);
      //textSize(width/20);
      textFont(mono);
-     //fill(244,201,213,200);
-     fill(244,244,244,200);
-     text(""+currentYear,clan0X + 50,clan0Y +200);
+     fill(244,201,213,200);
+     //fill(244,244,244,200);
+     text(""+currentYear,clan0X - 50,clan0Y +400);
      
      while (currentYear == csvJokbo.getCurrentYear()) {
+        //Latitude range of the map: 32 to 40
+        //Longitude range of the map: 125 to 129.5
        float lat  = csvJokbo.getLat();
        float lo  = csvJokbo.getLong();
-       lat = map(lat,39,33,0,height);
-       lo = map(lo,124.5,132,0,width);
+       lat = map(lat,33,39,25,height-50);
+       lo = map(lo,126,129.5,50,width-50);
        agents[agentsCount] = new Agent(lo, lat, clan0X, clan0Y);
        agentsCount ++;
        csvJokbo.toNextLine();//This will have one line overlap
