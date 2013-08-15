@@ -19,7 +19,7 @@ Agent[] agents = new Agent[10000]; // create more ... to fit max slider agentsCo
 
 int agentsCount = 1;
 float noiseScale = 100, noiseStrength = 10, noiseZRange = 0.4;
-float overlayAlpha = 0, agentsAlpha = 50, strokeWidth = .5, agentWidthMin = 1.5, agentWidthMax = 15;
+float overlayAlpha = 0, agentsAlpha = 100, strokeWidth = .5, agentWidthMin = 1.5, agentWidthMax = 15;
 int drawMode = 1;
 PShape img;
 int currentYear;
@@ -35,16 +35,18 @@ Jokbo csvJokbo;
 float clan0Y = 35.2285;
 float clan0X = 128.8894;
 
-
+PFont mono;
 
 
 //PImage danny;
 
 
 void setup(){
-  size(900,900,P2D);
+  size(768,1024,P2D);
+ background(244,201,213); 
+mono = loadFont("CourierNewPSMT-40.vlw");
   //danny = loadImage("danny.png");
-  img = loadShape("map10.svg");  //load the background map with the right aspect ratio
+  //img = loadShape("map10.svg");  //load the background map with the right aspect ratio
   //Latitude range of the map: 33 to 39
   //Longitude range of the map: 124 to 132
 
@@ -70,18 +72,22 @@ void draw(){
 //    timer = millis();
 //  }else{
   if (agents[0].done() == true){
-     shape(img, 0, 0, width, height);
+    //shape(img, 0, 0, width, height);
+    //background(244,201,213); 
      agentsCount = 0;
      csvJokbo.toNextLine();
      currentYear = csvJokbo.getCurrentYear();
      
      //update Year text on the display
      //fill(255,7,7);
-     //noStroke();
-     //rect(500,80,65,40);
-     textSize(width/10);
-     fill(244,201,213,200);
-     text(""+currentYear,clan0X + 50,clan0Y + 50);
+     noStroke();
+     fill(244,201,213);
+     rect(clan0X + 50,clan0Y +175,100,40);
+     //textSize(width/20);
+     textFont(mono);
+     //fill(244,201,213,200);
+     fill(244,244,244,200);
+     text(""+currentYear,clan0X + 50,clan0Y +200);
      
      while (currentYear == csvJokbo.getCurrentYear()) {
        float lat  = csvJokbo.getLat();

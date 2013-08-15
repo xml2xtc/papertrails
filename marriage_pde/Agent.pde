@@ -20,14 +20,16 @@
 class Agent {
   PVector p, pOld;
   float noiseZ, noiseZVelocity = 0.01;
-  float stepSize, angle, randomizer, dO;
+  float stepSize, angle, randomizer;
   color col, antiCol;
   int   yearMarker;
   boolean brideArrived;
-  int FPY = 1000;  //Number of frames per year controls the speed of the arrow
+  float distanceAlpha,distance,maxDist,distanceAlphaR,distanceAlphaG,distanceAlphaB;
+  int FPY = 50;  //Number of frames per year controls the speed of the arrow
   int currentFrame;
   float clan0X, clan0Y;
   float stepSizeX, stepSizeY;
+
 
   Agent(float m, float n, float clan0X, float clan0Y) {
     p = new PVector(m, n);
@@ -38,8 +40,13 @@ class Agent {
     //stepSize is the speed based on FPY
     stepSizeX = (clan0X-p.x)/FPY;
     stepSizeY = (clan0Y-p.y)/FPY;
-    //dO = ((clan0X+clan0Y)-(p.x-p.y)/255);
-    println("distance from Origin:"+dO); 
+    distance = sqrt((clan0X-p.x)*(clan0X-p.x)+(clan0Y-p.y)*(clan0Y-p.y));
+    maxDist = sqrt(height*height+width*width);
+    //distance is mapped 
+    distanceAlpha = map(distance,0,maxDist,0,30);
+    distanceAlphaR = map(distance,0,maxDist,300,0);
+    distanceAlphaG = map(distance,0,maxDist,400,150);
+    distanceAlphaB = map(distance,0,maxDist,300,20);
     //direction 
     if ((clan0X-p.x)<0) {
       angle = PI + atan((clan0Y-p.y)/(clan0X-p.x));
@@ -53,9 +60,9 @@ class Agent {
     // init noiseZ
     setNoiseZRange(0.4);
     //col = color((int)random(40,60), 70, (int)random(0,100));
-    float colorR = 245; //random(255);
-    float colorG = 240; //random(255);
-    float colorB = 255; //random(255);
+    float colorR = distanceAlpha; //random(255);
+    float colorG = 255-distanceAlpha; //random(255);
+    float colorB = 252; //random(255);
     col = color(colorR, colorG, colorB);
     antiCol = color(255-colorR, 255-colorG, 255-colorB);
     currentFrame = 0;
@@ -72,12 +79,15 @@ class Agent {
     stroke(col, agentsAlpha);
     strokeWeight(2);//strokeWidth*stepSize/2);
     line(pOld.x, pOld.y, p.x, p.y);
-    drawBride(p.x, p.y, 5.50);
+      
+    drawBride(p.x, p.y, distanceAlpha);
     //println("coord is" + p.x +"" + p.y);
     //println(currentFrame);
+    
     //Set the condition for bride arrival at the clan
     if (FPY == currentFrame) {
       brideArrived = true;
+      
     }
 
     pOld.set(p);
@@ -86,6 +96,7 @@ class Agent {
 
   void setYear(int birthYearOfBride) {
     yearMarker = birthYearOfBride;
+    
   }
   void update2() {
     angle = noise(p.x/noiseScale, p.y/noiseScale, noiseZ) * noiseStrength;
@@ -99,7 +110,7 @@ class Agent {
     if (p.y<-10) p.y=pOld.y=height+10;
     if (p.y>height+10) p.y=pOld.y=-10;
 
-    stroke(col, agentsAlpha);
+    stroke(col, distanceAlpha);
     strokeWeight(strokeWidth);
     line(pOld.x, pOld.y, p.x, p.y);
     float agentWidth = map(randomizer, 0, 1, agentWidthMin, agentWidthMax);
@@ -112,9 +123,7 @@ class Agent {
     pOld.set(p);
     noiseZ += noiseZVelocity;
   }
-
-
-  void setNoiseZRange(float theNoiseZRange) {
+void setNoiseZRange(float theNoiseZRange) {
     // small values will increase grouping of the agents
     noiseZ = random(theNoiseZRange);
   }
@@ -130,25 +139,22 @@ class Agent {
     pushMatrix();
     translate(brideLocX, brideLocY); //translate it the coordinate of the object
     rotate(angle);
-    float colorR = 255; //random(255);
-    float colorG = 254; //random(255);
-    float colorB = 245; //random(255);
+    float colorR = distanceAlphaR;//255; //random(255);
+    println(distanceAlpha+"");
+    float colorG = distanceAlphaG; //random(255);
+    float colorB = distanceAlphaB; //random(255);
     col = color(colorR, colorG, colorB);
     //start to draw the bride shape centered at where it should be 
-    fill(col);
+    fill(col, agentsAlpha);
     noStroke();
     beginShape();
     vertex(.5*shapeSize/.732, 0);
-    vertex(-shapeSize/.732, -0.3*shapeSize);
+    vertex(-shapeSize/.732, -0.5*shapeSize);
     vertex(0, 0); //origin vertex 
-    vertex(-shapeSize/.732, 0.3*shapeSize);
+    vertex(-shapeSize/.732, 0.5*shapeSize);
     endShape();
-
     popMatrix();
+    //draw a smaller bride indicator
   }
 }
-
-
-
-
 
