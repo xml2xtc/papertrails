@@ -42,11 +42,11 @@ PFont mono;
 
 
 void setup(){
-  size(768,1024,P2D);
+  size(displayWidth,displayHeight,P2D);
  background(244,201,213); 
 mono = loadFont("CourierNewPSMT-40.vlw");
   //danny = loadImage("danny.png");
-  //img = loadShape("map10.svg");  //load the background map with the right aspect ratio
+  img = loadShape("map10crop5.svg");  //load the background map with the right aspect ratio
   //Latitude range of the map: 33 to 39
   //Longitude range of the map: 124 to 132
 
@@ -72,7 +72,7 @@ void draw(){
 //    timer = millis();
 //  }else{
   if (agents[0].done() == true){
-    //shape(img, 0, 0, width, height);
+    shape(img, 0, 0, width, height);
     //background(244,201,213); 
      agentsCount = 0;
      csvJokbo.toNextLine();

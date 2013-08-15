@@ -13,7 +13,7 @@ PShape mapBG;                // map backgrtound image
 Adventure[] brides;         // create a new object called bride1 of the class Adventure
 
 void setup() {
-  size(500,800,P2D);
+  size(1080,1920,P2D);
   
   mapBG = loadShape("map.svg");  //load the background map with the right aspect ratio
   
@@ -28,7 +28,7 @@ void setup() {
     float xVal = float(values[1]);                          // set the lat
     float yVal = float(values[2]);                          // set the long
     xVal = map(xVal,31.92067,42.93917,10,width-10);         // map() function changes lat to x value of current window width
-    yVal = map(yVal,116.813 26,134.07497,10,height-10);      // map() function changes long to y value of current window height
+    yVal = map(yVal,116.813,134.07497,10,height-10);      // map() function changes long to y value of current window height
     brides[i] = new Adventure(year, xVal,yVal,float(width/2),float(height/2)); // create the object
   }
 }
