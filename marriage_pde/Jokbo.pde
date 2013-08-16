@@ -47,6 +47,7 @@ class Jokbo {
   //birth year of the bride
   public int getYear(int linenumber) {
     int year = Integer.parseInt(trim(csv[linenumber][2]));
+ 
     return year;
   }
   

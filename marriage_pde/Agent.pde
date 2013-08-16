@@ -11,7 +11,7 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applica  ble law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
@@ -25,12 +25,12 @@ class Agent {
   int   yearMarker;
   boolean brideArrived;
   float distanceAlpha,distance,maxDist,distanceAlphaR,distanceAlphaG,distanceAlphaB;
-  int FPY = 50;  //Number of frames per year controls the speed of the arrow
+  int FPY = 10;  //Number of frames per year controls the speed of the arrow
   int currentFrame;
   float clan0X, clan0Y;
   float stepSizeX, stepSizeY;
 
-
+  
   Agent(float m, float n, float clan0X, float clan0Y) {
     p = new PVector(m, n);
     pOld = new PVector(p.x, p.y);
@@ -46,7 +46,7 @@ class Agent {
     distanceAlpha = map(distance,0,maxDist,0,30);
     distanceAlphaR = map(distance,0,maxDist,300,0);
     distanceAlphaG = map(distance,0,maxDist,300,100);
-    distanceAlphaB = map(distance,0,maxDist,300,20);
+    distanceAlphaB = map(distance,0,maxDist,300,0);
     //direction 
     if ((clan0X-p.x)<0) {
       angle = PI + atan((clan0Y-p.y)/(clan0X-p.x));
@@ -80,14 +80,13 @@ class Agent {
     strokeWeight(2);//strokeWidth*stepSize/2);
     line(pOld.x, pOld.y, p.x, p.y);
       
-    drawBride(p.x, p.y,10 + random(-4,2));
+    drawBride(p.x, p.y,10);
     //println("coord is" + p.x +"" + p.y);
     //println(currentFrame);
     
     //Set the condition for bride arrival at the clan
     if (FPY == currentFrame) {
       brideArrived = true;
-      
     }
 
     pOld.set(p);
@@ -154,6 +153,8 @@ void setNoiseZRange(float theNoiseZRange) {
     vertex(-shapeSize/.732, 0.5*shapeSize);
     endShape();
     popMatrix();
+    
+
     //draw a smaller bride indicator
   }
 }
