@@ -25,7 +25,7 @@ class Agent {
   int   yearMarker;
   boolean brideArrived;
   float distanceAlpha,distance,maxDist,distanceAlphaR,distanceAlphaG,distanceAlphaB;
-  int FPY = 1;  //Number of frames per year controls the speed of the arrow
+  int FPY = 1000;  //Number of frames per year controls the speed of the arrow
   int currentFrame;
   float clan0X, clan0Y;
   float stepSizeX, stepSizeY;

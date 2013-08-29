@@ -61,7 +61,7 @@ void setup() {
   
   csvJokbo = new Jokbo("jokbo1.txt");
   clan0Y = map(clan0Y,mapLatMax,mapLatMin,0,height);
-  clan0X = map(clan0X,mapLonMin,mapLonMax,0,width);
+  clan0X = map(clan0X ,mapLonMin,mapLonMax,0,width);
   //println("clan0 coord is" + clan0X +""+clan0Y);//For debug
   smooth();
   PVector p;
@@ -83,7 +83,7 @@ void draw() {
   //  }else{
   if (agents[0].done() == true) {
     if (csvJokbo.getCurrentYear() == 1998){
-       csvJokbo = new Jokbo("jokbo1cleaned.txt");}else{
+       csvJokbo = new Jokbo("jokbo1.txt");}else{
       shape(img1, 0, 0, width, height);
 
       //background(244,201,213); 
