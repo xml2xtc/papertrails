@@ -36,26 +36,32 @@ Jokbo csvJokbo;
 float clan0Y = 35.2285;
 float clan0X = 128.8894;
 
+float mapLonMax, mapLonMin, mapLatMax, mapLatMin;
+
 PFont mono;
 
 //PImage danny;
 
 void setup() {
-  size(576, 900, P2D);
+  size(700, displayHeight, P2D);
   background(244, 201, 213); 
-  mono = loadFont("CourierNewPSMT-40.vlw");
+  mono = createFont("CourierNewPSMT-60.vlw",60,true);
   //danny = loadImage("danny.png");
   //load the background map with the right aspect ratio
   img1 = loadShape("map10crop5.svg"); //blackandpink<-----
-  img = loadShape("map10crop4.svg");  //pink and green<----
+  //img = loadShape("map10crop4.svg");  //pink and green<----
   //Latitude range of the map: 33 to 39
   //Longitude range of the map: 124 to 132
   //Latitude range of the map: 32 to 40
   //Longitude range of the map: 125 to 129.5
-
-  csvJokbo = new Jokbo("jokbo1test3.txt");
-  clan0Y = map(clan0Y, 38.72, 32.8, 0, height);
-  clan0X = map(clan0X, 125.77, 129.73, 0, width);
+  mapLonMax = 129.73;
+  mapLonMin = 126;
+  mapLatMax = 38.94;
+  mapLatMin = 33;
+  
+  csvJokbo = new Jokbo("jokbo1.txt");
+  clan0Y = map(clan0Y,mapLatMax,mapLatMin,0,height);
+  clan0X = map(clan0X,mapLonMin,mapLonMax,0,width);
   //println("clan0 coord is" + clan0X +""+clan0Y);//For debug
   smooth();
   PVector p;
@@ -64,6 +70,7 @@ void setup() {
   }
 
   currentYear = csvJokbo.getCurrentYear();
+  println(currentYear);
   //setupGUI();
   //shape(imgswitch, 0, 0, width, height);
 }
@@ -75,41 +82,45 @@ void draw() {
   //    timer = millis();
   //  }else{
   if (agents[0].done() == true) {
-    shape(img1, 0, 0, width, height);
+    if (csvJokbo.getCurrentYear() == 1998){
+       csvJokbo = new Jokbo("jokbo1cleaned.txt");}else{
+      shape(img1, 0, 0, width, height);
 
-    //background(244,201,213); 
-    agentsCount = 0;
-    csvJokbo.toNextLine();
-    currentYear = csvJokbo.getCurrentYear();
+      //background(244,201,213); 
+      agentsCount = 0;
+      csvJokbo.toNextLine();
+      currentYear = csvJokbo.getCurrentYear();
 
-    //update Year text on the display
-    //fill(255,7,7);
-    noStroke();
-    fill(234, 252, 234);
-    rect(clan0X - 50, clan0Y +400, 100, 40);
+      //update Year text on the display
+      //fill(255,7,7);
+//      noStroke();
+//      fill(234, 252, 234);
+//      rect(clan0X - 50, clan0Y +400, 100, 40);
 
-    textFont(mono);
-    //textSize(width/20);
-    fill(244, 201, 213, 200);
-    //fill(244,244,244,200);
-    text(""+currentYear, clan0X - 50, clan0Y +400);
 
-    while (currentYear == csvJokbo.getCurrentYear ()) {
-      //Latitude range of the map: 33 to 39
-      //Longitude range of the map: 124 to 132
-      float lat  = csvJokbo.getLat();
-      float lo  = csvJokbo.getLong();
-      lat = map(lat, 38.72, 32.8, 0, height);        
-      lo = map(lo, 125.77, 129.73, 0, width);
-      agents[agentsCount] = new Agent(lo, lat, clan0X, clan0Y);
-      agentsCount ++;
-      csvJokbo.toNextLine();//This will have one line overlap
+
+      while (currentYear == csvJokbo.getCurrentYear ()) {
+        //Latitude range of the map: 33 to 39
+        //Longitude range of the map: 124 to 132
+        float lat  = csvJokbo.getLat();
+        float lo  = csvJokbo.getLong();
+        lat = map(lat, 38.72, 32.8, 0, height);        
+        lo = map(lo, 125.77, 129.73, 0, width);
+        agents[agentsCount] = new Agent(lo, lat, clan0X, clan0Y);
+        agentsCount ++;
+        csvJokbo.toNextLine();//This will have one line overlap
       //save("frames/jokbo_"+ agentsCount +".png");
     }
-    
-         if (agentsCount >= 1){
-
-         }
+      textFont(mono);
+      //textSize(width/20);
+      fill(244, 201, 213);
+      //fill(244,244,244,200);
+      String currentYearTxt;
+      currentYearTxt= str(currentYear);
+      text(currentYearTxt, clan0X - 85, clan0Y + 250);  
+      
+}
+       
   }
 
   

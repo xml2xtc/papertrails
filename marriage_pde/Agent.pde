@@ -25,7 +25,7 @@ class Agent {
   int   yearMarker;
   boolean brideArrived;
   float distanceAlpha,distance,maxDist,distanceAlphaR,distanceAlphaG,distanceAlphaB;
-  int FPY = 10;  //Number of frames per year controls the speed of the arrow
+  int FPY = 1;  //Number of frames per year controls the speed of the arrow
   int currentFrame;
   float clan0X, clan0Y;
   float stepSizeX, stepSizeY;
@@ -60,9 +60,9 @@ class Agent {
     // init noiseZ
     setNoiseZRange(0.4);
     //col = color((int)random(40,60), 70, (int)random(0,100));
-    float colorR = distanceAlpha; //random(255);
-    float colorG = 255-distanceAlpha; //random(255);
-    float colorB = 252; //random(255);
+    float colorR = 0; //random(255);
+    float colorG = 0; //random(255);
+    float colorB = 0; //random(255);
     col = color(colorR, colorG, colorB);
     antiCol = color(255-colorR, 255-colorG, 255-colorB);
     currentFrame = 0;
@@ -139,7 +139,7 @@ void setNoiseZRange(float theNoiseZRange) {
     translate(brideLocX, brideLocY); //translate it the coordinate of the object
     rotate(angle);
     float colorR = distanceAlphaR;//255; //random(255);
-    println(distanceAlpha+"");
+    //println(distanceAlpha+"");
     float colorG = distanceAlphaG; //random(255);
     float colorB = distanceAlphaB; //random(255);
     col = color(colorR, colorG, colorB);
